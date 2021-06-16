@@ -1,0 +1,50 @@
+<%- include("./partials/header") %>
+<%- include("./partials/navbar") %>
+
+
+<div class="container mt-5 py-5">
+    <h1>Articles</h1>
+
+    <% blogs.reverse() %>
+
+    <% blogs.forEach(blog => { %>
+        <div class="card mt-3">
+            <div class="card-body">
+              <p class="text-muted">published at:<%= blog.postedAt %></p>
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p class="card-text"><%= blog.content.slice(0, 99) %>...<a href="/blog/<%= blog._id %>">Read More..</a></p>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read More</a>
+              <a href="/edit/<%= blog._id %>" class="btn btn-warning">Edit</a>
+              <a href="/delete/<%= blog._id %>" class="btn btn-danger">Delete</a>
+
+            </div>
+          </div>
+    <%}) %>
+
+</div>
+<div class="container mt-5 py-5">
+  <h3>Comments</h3>
+  <div class="container mt-5">
+    <form action="/comment" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" class="form-control">
+        <textarea name="comment" cols="20" rows="10" class="mt-3 form-control" placeholder="Enter content here..."></textarea>
+        <input type="submit" value="Comments" class="mt-5 btn btn-lg btn-danger">
+    </form>
+  </div>
+
+  <% comments.reverse() %>
+
+  <% comments.forEach(comment => { %>
+      <div class="card mt-3">
+          <div class="card-body">
+            <p class="text-muted">published at:<%= comment.postedAt %></p>
+            <h5 class="card-title"><%= comment.name %></h5>
+            <p class="card-text"><%= comment.comment.slice(0, 99) %></p>
+
+          </div>
+        </div>
+  <%}) %>
+
+</div>
+
+<%- include("./partials/footer") %>
